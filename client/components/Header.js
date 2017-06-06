@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import query from '../queries/CurrentUser';
 import { Link } from 'react-router';
 import mutation from '../mutations/Logout';
@@ -55,6 +55,7 @@ class Header extends Component{
   }
 }
 
-export default graphql(mutation)(
-  graphql(query)(Header)
-);
+export default compose(
+  graphql(query),
+  graphql(mutation)
+)(Header);
