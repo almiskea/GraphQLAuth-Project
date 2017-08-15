@@ -6,6 +6,7 @@ const App = (props) => {
     <div className="container">
       <Header />
       {props.children}
+
     </div>
   );
 }
