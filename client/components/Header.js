@@ -3,6 +3,9 @@ import { graphql, compose } from 'react-apollo';
 import query from '../queries/CurrentUser';
 import { Link } from 'react-router';
 import mutation from '../mutations/Logout';
+import ButtonAppBar from './headerHelper';
+import Button from 'material-ui/Button';
+
 
 class Header extends Component{
   onLogoutClick(){
@@ -18,42 +21,43 @@ class Header extends Component{
     }
     if(user){
       return (
-              <li>
+              <Button>
                 <a onClick={this.onLogoutClick.bind(this)} className="">Logout</a>
-              </li>
+              </Button>
       );
     }else{
       return (
-        <div>
-          <li>
+        <span>
+        <Button color="contrast">
+
             <Link to="/signup">
             SignUp
             </Link>
-          </li>
-          <li>
-            <Link to="/login">
-            Login
-            </Link>
-          </li>
-        </div>
+            </Button>
+
+<Button color="contrast">
+<Link to="/login">
+Login
+</Link>
+        </Button>
+        </span>
       );
     }
   }
+
+
+
   render(){
     return (
-      <nav>
-        <div className="nav-wrapper">
-        <Link to="/" className="brand-logo left" >
-        Home
-        </Link>
-          <ul className="right">
-          {this.renderButtons()}
-          </ul>
-        </div>
-      </nav>
+      <div>
+        <ButtonAppBar
+        button = {this.renderButtons.bind(this)}
+        />
+      </div>
     );
   }
 }
+
 
 export default compose(
   graphql(query),

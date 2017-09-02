@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Inputs from './AuthFormHelper';
 
 class AuthForm extends Component {
   constructor(props){
@@ -6,27 +7,21 @@ class AuthForm extends Component {
 
     this.state = {email: '', password: ''};
   }
-  onSubmit(event){
-    event.preventDefault();
+  onSubmit(state){
 
-    this.props.onSubmit(this.state);
+
+    this.props.onSubmit(state);
   }
   render() {
 
     return (
       <div className="row">
-        <form onSubmit={this.onSubmit.bind(this)} className="col s4">
-          <div className="input-field">
-            <input placeholder="Email" value={this.state.email} onChange={ e => this.setState({ email : e.target.value})}/>
-          </div>
-          <div className="input-field">
-            <input type="password" placeholder="Password" value={this.state.password} onChange={ e => this.setState({ password : e.target.value})}/>
-          </div>
-          <div className="errors" style={{"color":"red"}}>
-            {this.props.errors.map(error => <div key={error}>{error}</div>)}
-          </div>
-          <button className="btn">Submit</button>
-        </form>
+      <Inputs
+      onSubmit={this.onSubmit.bind(this)}
+      email={this.state.email}
+      password={this.state.password}
+      />
+        
 
       </div>
     );
