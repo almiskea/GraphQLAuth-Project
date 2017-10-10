@@ -22,7 +22,6 @@ class Inputs extends Component {
     }
 
     onSubmit(){
-
       this.props.onSubmit(this.state);
     }
 
@@ -49,7 +48,7 @@ render() {
           'aria-label': 'Description',
         }}
       /><br/>
-      <Button onClick={this.props.onSubmit} raised color="primary" className={classes.button}>
+      <Button onClick={this.onSubmit.bind(this)} raised color="primary" className={classes.button}>
         Submit
       </Button>
 

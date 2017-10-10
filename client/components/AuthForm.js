@@ -7,10 +7,8 @@ class AuthForm extends Component {
 
     this.state = {email: '', password: ''};
   }
-  onSubmit(state){
-
-
-    this.props.onSubmit(state);
+  onSubmit({email , password}){
+    this.props.onSubmit({email , password});
   }
   render() {
 
@@ -21,7 +19,7 @@ class AuthForm extends Component {
       email={this.state.email}
       password={this.state.password}
       />
-        
+
 
       </div>
     );
