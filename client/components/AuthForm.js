@@ -15,6 +15,7 @@ class AuthForm extends Component {
     return (
       <div className="row">
       <Inputs
+      path={this.props.path}
       onSubmit={this.onSubmit.bind(this)}
       email={this.state.email}
       password={this.state.password}

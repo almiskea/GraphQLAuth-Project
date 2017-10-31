@@ -27,13 +27,13 @@ function ButtonAppBar(props) {
   var self = this;
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="accent">
       <Toolbar disableGutters>
           <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography type="title" color="inherit" className={classes.flex}>
-          <Link to="/" >
+          <Link to="/dashboard" >
           Home
           </Link>
           </Typography>

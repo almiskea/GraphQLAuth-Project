@@ -19,9 +19,13 @@ const MONGO_URI = `mongodb://${username}:${pass}@ds147711.mlab.com:47711/auth`;
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
 
+var options = {
+  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+};
 // Connect to the mongoDB instance and log a message
 // on success or failure
-mongoose.connect(MONGO_URI);
+mongoose.connect(MONGO_URI,options);
 mongoose.connection
     .once('open', () => console.log('Connected to MongoLab instance.'))
     .on('error', error => console.log('Error connecting to MongoLab:', error));

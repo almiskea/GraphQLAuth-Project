@@ -17,7 +17,7 @@ const styles = theme => ({
 class Inputs extends Component {
     constructor(props){
       super(props);
-
+      console.log("path", props);
       this.state = {email: '', password: ''};
     }
 
@@ -27,6 +27,7 @@ class Inputs extends Component {
 
 render() {
   const classes = this.props.classes;
+  //console.log("path", this.props);
   return (
     <div className={classes.container}>
       <Input
@@ -48,8 +49,8 @@ render() {
           'aria-label': 'Description',
         }}
       /><br/>
-      <Button onClick={this.onSubmit.bind(this)} raised color="primary" className={classes.button}>
-        Submit
+      <Button onClick={this.onSubmit.bind(this)}  color="primary" className={classes.button}>
+        {this.props.path}
       </Button>
 
 

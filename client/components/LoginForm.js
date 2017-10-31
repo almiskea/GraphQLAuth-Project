@@ -8,6 +8,7 @@ import { hashHistory } from 'react-router';
 class LoginForm extends Component {
   constructor(props){
     super(props);
+    console.log("path", props);
     this.state = { errors : []}
   }
   componentWillUpdate(nextProps){
@@ -28,8 +29,8 @@ class LoginForm extends Component {
   render() {
     return (
       <div>
-      <h3>Login</h3>
         <AuthForm
+          path={this.props.route.path}
           errors={this.state.errors}
           onSubmit={this.onSubmit.bind(this)}
           />

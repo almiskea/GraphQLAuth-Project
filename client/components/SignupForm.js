@@ -28,8 +28,8 @@ class SignupForm extends Component {
   render() {
     return (
       <div>
-      <h3>Signup</h3>
         <AuthForm
+          path={this.props.route.path}
           errors={this.state.errors}
           onSubmit={this.onSubmit.bind(this)}
           />

@@ -31,7 +31,7 @@
     "graphql-tag": "^2.4.2",
     "html-webpack-plugin": "^2.26.0",
     "lodash": "^4.17.4",
-    "material-ui": "^1.0.0-beta.7",
+    "material-ui": "^1.0.0-beta.17",
     "material-ui-icons": "^1.0.0-beta.5",
     "mongoose": "^4.7.8",
     "passport": "^0.3.2",

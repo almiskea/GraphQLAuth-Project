@@ -6,11 +6,13 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import Dashboard from './components/Dashboard';
 import requireAuth from './components/requireAuth';
+import AddBehavior from './components/AddBehavior';
 
 export default (
             <Route path="/" component={App}>
               <Route path="login" component={LoginForm} />
               <Route path="signup" component={SignupForm} />
               <Route path="dashboard" component={requireAuth(Dashboard)} />
+              <Route path="AddBehavior" component={requireAuth(AddBehavior)} />
             </Route>
 );
