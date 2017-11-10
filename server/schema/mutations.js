@@ -4,8 +4,9 @@ const {
    GraphQLString,
    GraphQLID
  } = graphql;
+ const _ = require('lodash');
  const mongoose = require('mongoose');
- const Behavior = mongoose.model('behavior');
+ const User = mongoose.model('user');
  const UserType = require('./types/user_type');
  const BehaviorType = require('./types/behavior_type');
  const AuthService = require('../services/auth');
@@ -30,15 +31,22 @@ const {
         definition:  { type: GraphQLString },
         frequency:  { type: GraphQLString }
       },
-      resolve(parentValue, { name, definition, frequency }) {
-        return (new Behavior({ name, definition, frequency })).save()
+      resolve(parentValue, { name, definition, frequency }, req) {
+        return User.findById(req.user.id)
+          .then(user => {
+            user.behaviors.push({name , definition, frequency})
+            return user.save();
+          });
       }
     },
     deleteBehavior: {
       type: BehaviorType,
       args: { id: { type: GraphQLID } },
-      resolve(parentValue, { id }) {
-        return Behavior.remove({ _id: id });
+      resolve(parentValue, { id },req) {
+        return User.findById(req.user.id).then(user => {
+          user.behaviors.id(id).remove()
+          return user.save();
+        });
       }
     },
      login: {

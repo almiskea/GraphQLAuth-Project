@@ -9,8 +9,18 @@ const BehaviorSchema = require('./behavior');
 const UserSchema = new Schema({
   email: String,
   password: String,
-  behavior: [BehaviorSchema]
+  behaviors: [BehaviorSchema]
 });
+
+UserSchema.statics.addBehavior = function({id, name , definition, frequency}) {
+
+  console.log("user.id ", id)
+  return this.findById(id)
+    .then(user => {
+      user.behaviors.push({name , definition, frequency})
+      user.save();
+    });
+}
 
 // The user's password is never saved in plain text.  Prior to saving the
 // user model, we 'salt' and 'hash' the users password.  This is a one way
@@ -40,5 +50,6 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
     cb(err, isMatch);
   });
 };
+
 
 mongoose.model('user', UserSchema);

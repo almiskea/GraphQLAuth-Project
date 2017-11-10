@@ -8,4 +8,4 @@ const BehaviorSchema = new Schema({
 });
 
 
-mongoose.model('behavior', BehaviorSchema);
+module.exports = BehaviorSchema;
