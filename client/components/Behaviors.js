@@ -33,7 +33,6 @@ class Behaviors extends Component {
   }
 
   deleteBehavior(id){
-    console.log(id);
     const self = this;
     this.props.mutate({
       variables:{
@@ -64,7 +63,6 @@ class Behaviors extends Component {
     })
   }
   render(){
-    console.log("data : ",this.props.data);
     const { classes } = this.props;
     return (
       <div className={classes.root}>

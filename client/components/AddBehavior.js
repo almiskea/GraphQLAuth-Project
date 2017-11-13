@@ -40,11 +40,9 @@ class AddBehavior extends Component {
   }
 
   onSubmit(event){
-    console.log(this.state.name);
     self = this;
     const {name, definition, frequency} = this.state;
     event.preventDefault();
-    console.log("behavior : ",{name, definition, frequency});
     this.props.mutate({
       variables:{
         name: name,

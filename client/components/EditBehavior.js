@@ -11,6 +11,7 @@ import { Link, hashHistory } from 'react-router';
 import EditBehaviorMutation from '../mutations/EditBehavior';
 import fetchBehavior from '../queries/fetchBehavior';
 import fetchBehaviors from '../queries/fetchBehaviors';
+import { LinearProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
   container: {
@@ -40,43 +41,19 @@ class EditBehavior extends Component {
       id: ''
     }
   }
-componentWillMount(){
-  if(this.props.data.loading){
-    this.sleep(1000).then(() => {
-      this.updateState();
-    });
-  }
-
-}
-
-sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-  updateState() {
-
-    if(this.props.data.behavior){
-      const {id,name, frequency, definition} = this.props.data.behavior;
-      console.log("data : ",this.props.data)
-      console.log("behavior : ",{id,name, frequency, definition})
-      this.setState({
-        id,
-        name,
-        definition,
-        frequency
-      });
-    }
-  }
 
   onSubmit(event){
-    console.log(this.state.name);
     const self = this;
+    let {name, definition, frequency, id} = this.state;
     event.preventDefault();
+    //console.log("Event : ", event)
+    console.log("behavior : ",{name, definition, frequency, id});
     this.props.mutate({
       variables:{
-        id: self.state.id,
-        name: self.state.name,
-        definition: self.props.definition,
-        frequency: self.props.frequency
+        id: id? id : this.props.data.behavior.id,
+        name: name? name : this.props.data.behavior.name,
+        definition: definition? definition : this.props.data.behavior.definition,
+        frequency: frequency? frequency : this.props.data.behavior.frequency
       },
       refetchQueries:[{
         query:fetchBehaviors}]
@@ -93,7 +70,12 @@ sleep (time) {
   }
 
   render(){
+    const { loading } = this.props.data;
 
+    if (loading) {
+      return (<LinearProgress color="accent" />);
+    }
+    const {frequency, definition, name } = this.props.data.behavior;
   const { classes } = this.props;
     return (
       <div >
@@ -109,7 +91,7 @@ sleep (time) {
                 label="Name"
                 className={classes.textField}
                 margin="normal"
-                value={this.state.name}
+                value={this.state.name? this.state.name : name}
                 onChange={event => this.setState({ name : event.target.value})}
               />
 
@@ -120,7 +102,7 @@ sleep (time) {
                 multiline
                 className={classes.textField}
                 margin="normal"
-                value={this.state.definition}
+                value={this.state.definition? this.state.definition : definition }
                 onChange={event => this.setState({ definition : event.target.value})}
               />
               <TextField
@@ -129,7 +111,7 @@ sleep (time) {
                 label="Frequency"
                 className={classes.textField}
                 margin="normal"
-                value={this.state.frequency}
+                value={this.state.frequency? this.state.frequency : frequency }
                 onChange={event => this.setState({ frequency : event.target.value})}
               />
 

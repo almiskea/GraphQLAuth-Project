@@ -17,7 +17,6 @@ const styles = theme => ({
 class Inputs extends Component {
     constructor(props){
       super(props);
-      console.log("path", props);
       this.state = {email: '', password: ''};
     }
 
@@ -27,7 +26,6 @@ class Inputs extends Component {
 
 render() {
   const classes = this.props.classes;
-  //console.log("path", this.props);
   return (
     <div className={classes.container}>
       <Input

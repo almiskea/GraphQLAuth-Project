@@ -13,8 +13,6 @@ const UserSchema = new Schema({
 });
 
 UserSchema.statics.addBehavior = function({id, name , definition, frequency}) {
-
-  console.log("user.id ", id)
   return this.findById(id)
     .then(user => {
       user.behaviors.push({name , definition, frequency})

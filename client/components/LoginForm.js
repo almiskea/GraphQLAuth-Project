@@ -8,7 +8,6 @@ import { hashHistory } from 'react-router';
 class LoginForm extends Component {
   constructor(props){
     super(props);
-    console.log("path", props);
     this.state = { errors : []}
   }
   componentWillUpdate(nextProps){
