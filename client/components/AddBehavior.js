@@ -8,7 +8,7 @@ import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import { Link, hashHistory } from 'react-router';
-import AddToBehavior from '../mutations/AddToBehavior';
+import AddBehaviorMutation from '../mutations/AddBehavior';
 
 const styles = theme => ({
   container: {
@@ -113,5 +113,5 @@ AddBehavior.propTypes = {
 
 
 export default compose(
-  graphql(AddToBehavior)
+  graphql(AddBehaviorMutation)
 )((withStyles(styles)(AddBehavior)));

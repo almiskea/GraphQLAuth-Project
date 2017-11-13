@@ -10,6 +10,8 @@ const {
  const UserType = require('./types/user_type');
  const BehaviorType = require('./types/behavior_type');
  const AuthService = require('../services/auth');
+ const Schema = mongoose.Schema;
+ const ObjectId = Schema.ObjectId;
 
  const mutation = new GraphQLObjectType({
    name : "Mutation",
@@ -39,6 +41,28 @@ const {
           });
       }
     },
+    editBehavior: {
+     type: BehaviorType,
+     args: {
+       id: {type: GraphQLID},
+       name:  { type: GraphQLString },
+       definition:  { type: GraphQLString },
+       frequency:  { type: GraphQLString }
+     },
+     resolve(parentValue, { name, definition, frequency, id }, req) {
+       return User.findOneAndUpdate(
+            { "_id": req.user.id, "behaviors._id": id },
+            {
+                "$set": {
+                    "behaviors.$": { name, definition, frequency }
+                }
+            },
+            function(err,doc) {
+
+            }
+        );
+     }
+   },
     deleteBehavior: {
       type: BehaviorType,
       args: { id: { type: GraphQLID } },
