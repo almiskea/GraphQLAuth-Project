@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Input from 'material-ui/Input';
@@ -6,7 +7,8 @@ import TextField from 'material-ui/TextField';
 import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
+import AddToBehavior from '../mutations/AddToBehavior';
 
 const styles = theme => ({
   container: {
@@ -29,6 +31,33 @@ const styles = theme => ({
 class AddBehavior extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      name: '',
+      definition: '',
+      frequency: ''
+    }
+  }
+
+  onSubmit(event){
+    console.log(this.state.name);
+    const self = this;
+    event.preventDefault();
+    this.props.mutate({
+      variables:{
+        name: self.state.name,
+        definition: self.props.definition,
+        frequency: self.props.frequency
+      }
+    }).then( () => {
+      self.setState({
+        name: '',
+        definition: '',
+        frequency: ''
+      });
+      hashHistory.push('/dashboard');
+    })
+
+
   }
 
   render(){
@@ -39,7 +68,7 @@ class AddBehavior extends Component {
           <Link to='dashboard'>BACK</Link>
         </Button>
 
-        <form className={classes.container}  noValidate autoComplete="off">
+        <form className={classes.container} noValidate autoComplete="off">
 
             <TextField
                 required
@@ -47,6 +76,7 @@ class AddBehavior extends Component {
                 label="Name"
                 className={classes.textField}
                 margin="normal"
+                onChange={event => this.setState({ name : event.target.value})}
               />
 
               <TextField
@@ -56,6 +86,7 @@ class AddBehavior extends Component {
                 multiline
                 className={classes.textField}
                 margin="normal"
+                onChange={event => this.setState({ definition : event.target.value})}
               />
               <TextField
                 required
@@ -64,10 +95,11 @@ class AddBehavior extends Component {
                 defaultValue="once a week"
                 className={classes.textField}
                 margin="normal"
+                onChange={event => this.setState({ frequency : event.target.value})}
               />
 
         </form>
-        <Button fab color="accent" aria-label="Add">
+        <Button onClick={this.onSubmit.bind(this)} fab color="accent" aria-label="Add">
           <AddIcon />
         </Button>
       </div>
@@ -79,4 +111,7 @@ AddBehavior.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddBehavior);
+
+export default compose(
+  graphql(AddToBehavior)
+)((withStyles(styles)(AddBehavior)));

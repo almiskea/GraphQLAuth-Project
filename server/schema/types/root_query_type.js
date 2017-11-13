@@ -27,11 +27,9 @@ const RootQueryType = new GraphQLObjectType({
     behavior: {
       type: BehaviorType,
       resolve(parnetValue, { id }, req) {
-        return req.user.behaviors[_.findIndex(req.user.behaviors, function(o) { return o._id.oid == id; })];
-
         return User.findById(req.user.id)
           .then(user => {
-            return  user.behaviors.id(id);  
+            return  user.behaviors.id(id);
           });
       }
   }
