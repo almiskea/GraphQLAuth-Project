@@ -5,7 +5,8 @@ const BehaviorType = require('./behavior_type');
 const mongoose = require('mongoose');
 const _ = require('lodash');
 //const Behavior = require('mongoose').model('behavior');
-
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
 const User = mongoose.model('user');
 
@@ -26,14 +27,15 @@ const RootQueryType = new GraphQLObjectType({
     },
     behavior: {
       type: BehaviorType,
-      resolve(parnetValue, { id }, req) {
-        return User.findById(req.user.id)
-          .then(user => {
-            return  user.behaviors.id(id);
-          });
+      args: { id: { type: GraphQLID } },
+      resolve(parentValue, { id },req) {
+        return User.findById(req.user.id).then(user => {
+          return user.behaviors.id(id);
+        });
       }
-  }
+    }
 }
 });
+
 
 module.exports = RootQueryType;

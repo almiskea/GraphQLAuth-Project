@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import { Link, hashHistory } from 'react-router';
 import AddBehaviorMutation from '../mutations/AddBehavior';
+import fetchBehaviors from '../queries/fetchBehaviors';
 
 const styles = theme => ({
   container: {
@@ -40,14 +41,18 @@ class AddBehavior extends Component {
 
   onSubmit(event){
     console.log(this.state.name);
-    const self = this;
+    self = this;
+    const {name, definition, frequency} = this.state;
     event.preventDefault();
+    console.log("behavior : ",{name, definition, frequency});
     this.props.mutate({
       variables:{
-        name: self.state.name,
-        definition: self.props.definition,
-        frequency: self.props.frequency
-      }
+        name: name,
+        definition: definition,
+        frequency: frequency
+      },
+      refetchQueries:[{
+        query:fetchBehaviors}]
     }).then( () => {
       self.setState({
         name: '',
@@ -61,6 +66,7 @@ class AddBehavior extends Component {
   }
 
   render(){
+
   const { classes } = this.props;
     return (
       <div >
@@ -92,7 +98,6 @@ class AddBehavior extends Component {
                 required
                 id="Frequency"
                 label="Frequency"
-                defaultValue="once a week"
                 className={classes.textField}
                 margin="normal"
                 onChange={event => this.setState({ frequency : event.target.value})}

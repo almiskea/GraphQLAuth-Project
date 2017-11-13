@@ -12,7 +12,7 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import fetchBehaviors from '../queries/fetchBehaviors';
 import DeleteBehavior from '../mutations/DeleteBehavior';
 
@@ -58,7 +58,7 @@ class Behaviors extends Component {
                     <Button   onClick={event => this.deleteBehavior(item.id)} >
                       <DeleteIcon/>
                     </Button>
-        <ListItemText primary={item.name} />
+        <ListItemText primary={item.name} onClick={event => hashHistory.push('/EditBehavior/'+item.id)}/>
 
       </ListItem>);
     })
